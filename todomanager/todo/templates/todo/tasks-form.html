@@ -1,0 +1,14 @@
+<html>
+  <head>
+    <title>App todo</title>
+  </head>
+  <body>
+    <h1>Formulaire</h1>
+    <form method="POST" action=".">
+      {% csrf_token %}
+      {{form.as_p}}
+      <input type='submit' name='valider'>
+      <input type='reset' name='reset'>
+    </form>
+  </body>
+</html>

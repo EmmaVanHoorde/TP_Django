@@ -74,11 +74,33 @@ class Setting(Parano, models.Model):
     class Meta:
         app_label = "todo"
 
-# class Group(Parano, models.Model):
-#     name = CharField(
-#         verbose_name="",
-#     )
+class Group(Parano, models.Model):
+    settings = models.ForeignKey(
+        'Setting',
+        verbose_name= "",
+    )
+    name = models.CharField(
+        verbose_name="",
+        max_length=60
+    )
 
+class Relation(models.Model):
+    group = models.ForeignKey(
+        'Group',
+        verbose_name= "Relations",
+    )
+    member = models.ForeignKey(
+        'Member',
+        verbose_name=""
+    )
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name="Crée le",
+    )
+    type = models.CharField(
+        max_length=60,
+        verbose_name="",
+    )
 
 class Task(Parano, models.Model):
     status_choices = (
@@ -128,8 +150,9 @@ class Task(Parano, models.Model):
         app_label = "todo"
         ordering = ['-created_at']
 
-    # def __str__(self):
-    #     return str(self.name)
-    #
-    # def get_absolute_url(self):
-    #     return reverse_lazy('todo:tasks:retrieve', kwargs={'pk': self.id})
+    def __str__(self):
+        return str(self.name)
+
+    def get_absolute_url(self):
+        return '/'+str(self.id)+'/'
+        #return reverse_lazy('todo:tasks:retrieve', kwargs={'pk': self.id})
